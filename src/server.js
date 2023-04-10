@@ -10,7 +10,7 @@ app.get('/retirar', (request, response) => {
   const { vegetable, sauce } = request.query
 
   response.send(
-    `O usuário solicita a retirada dos seguinte ingredientes.
+    `O usuário solicita a retirada dos seguinte ingredientes especiais.
     
     Vegetal a ser retirado: ${vegetable}
     Molho a ser retirado: ${sauce}`
