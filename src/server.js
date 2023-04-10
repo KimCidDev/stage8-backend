@@ -5,6 +5,18 @@ app.get('/sabores/:id', (request, response) => {
     `Você acessou os sabores de Xis do Porto. Xis escolhido pelo usuário: ${request.params.id}`
   )
 })
+
+app.get('/retirar', (request, response) => {
+  const { vegetable, sauce } = request.query
+
+  response.send(
+    `O usuário solicita a retirada dos seguinte ingredientes.
+    
+    Vegetal a ser retirado: ${vegetable}
+    Molho a ser retirado: ${sauce}`
+  )
+})
+
 const PORT = 3333
 
 app.listen(PORT, () => {
