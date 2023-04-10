@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "xis salada"
+    "start": "node ./src/server.js"
   },
   "keywords": [],
   "author": "Kim Cid Teixeira",
