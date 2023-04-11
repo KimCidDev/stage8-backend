@@ -1,4 +1,5 @@
 const express = require('express')
+
 const app = express()
 app.get('/sabores/:id', (request, response) => {
   response.send(
@@ -10,7 +11,7 @@ app.get('/retirar', (request, response) => {
   const { vegetable, sauce } = request.query
 
   response.send(
-    `O usuário solicita a retirada dos seguinte ingredientes especiais.
+    `O usuário solicita a retirada dos seguintes   ingredientes.
     
     Vegetal a ser retirado: ${vegetable}
     Molho a ser retirado: ${sauce}`
