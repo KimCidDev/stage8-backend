@@ -2,9 +2,7 @@ const { Router } = require('express')
 
 const userRoutes = require('././routes/users.routes.js')
 
-const routes = Router()
-
-class UsersController {
+class UsersController { 
   Create() {
     userRoutes.post('/', (request, response) => {
       const { name, email, password } = request.body
