@@ -4,6 +4,7 @@ const usersRoutes = Router()
 const UserController = require('../controllers/usersControllers')
 const userController = new UserController()
 
+// xisSalada é um Middleware
 function xisSalada(request, response, next) {
   if (request.body.maionese) {
     return response.json({ mensagem: 'Você não é bem vindo por aqui' })
@@ -13,5 +14,7 @@ function xisSalada(request, response, next) {
 }
 
 usersRoutes.post('/', xisSalada, userController.create)
+// OR
+// usersRoutes.use(xisSalada)
 
 module.exports = usersRoutes
