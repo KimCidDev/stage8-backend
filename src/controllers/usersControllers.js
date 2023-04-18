@@ -5,7 +5,7 @@ class UsersController {
     const { name, email, password, ingredienteFav, maionese } = request.body
 
     if (!name) {
-      throw new Error = appError("o nome é obrigatório")
+      throw new Error = appError("o nome é obrigatório");
     }
 
     response
