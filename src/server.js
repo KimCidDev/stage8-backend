@@ -1,21 +1,22 @@
-require('express-async-errors')
-const database = require('./database/sqlite')
+require('express-async-errors');
+const migrationsRun = require('./database/sqlite/migrations');
 
-const AppError = require('./utils/appError')
+const AppError = require('./utils/appError');
 
-const express = require('express')
-const routes = require('./routes')
+const express = require('express');
+const routes = require('./routes');
 
-const app = express()
-app.use(express.json())
-app.use(routes)
-database()
+migrationsRun();
 
-const PORT = 3333
+const app = express();
+app.use(express.json());
+app.use(routes);
+
+const PORT = 3333;
 
 app.listen(PORT, () => {
-  console.log(`server is now running. Port: ${PORT}`)
-})
+  console.log(`server is now running. Port: ${PORT}`);
+});
 
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
@@ -23,16 +24,16 @@ app.use((error, request, response, next) => {
       error: 'error',
       message: error.message,
       errorStatus: error.statusCode
-    })
+    });
   }
 
-  console.log(error)
+  console.log(error);
 
   return response.status(error.statusCode).json({
     status: 'error',
     message: 'internal server error'
-  })
-})
+  });
+});
 
 /*
 ROUTE PARAMS EXAMPLE
