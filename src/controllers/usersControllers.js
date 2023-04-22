@@ -1,7 +1,8 @@
 const appError = require('../utils/appError');
 
 const sqliteConnection = require('../database/sqlite');
-const AppError = require('../utils/appError');
+
+const { hash } = require('bcryptjs');
 
 class UsersController {
   async create(request, response) {
@@ -17,14 +18,16 @@ class UsersController {
       throw new appError('Este e-mail já está em uso');
     }
 
+    const hashedPassword = await hash(password, 8);
+
     await database.run(
       'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      [name, email, password]
+      [name, email, hashedPassword]
     );
 
     return response
       .status(201)
-      .json({ name: name, email: email, password: password });
+      .json({ name: name, email: email, password: hashedPassword });
   }
 }
 
