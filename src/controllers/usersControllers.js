@@ -37,9 +37,21 @@ class UsersController {
     const database = await sqliteConnection();
     const user = await database.get('SELECT * FROM users WHERE id = (?)', [id]);
 
-    return response
-      .status(201)
-      .json({ name: name, email: email, password: hashedPassword });
+    if (!user) {
+      throw new AppError('Usuário não encontrado.');
+    }
+
+    const userWithUpdatedEmail = await database.get(
+      'SELECT * FROM users WHERE email = ?',
+      [email]
+    );
+
+    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user.id)
+
+
+      return response
+        .status(201)
+        .json({ name: name, email: email, password: hashedPassword });
   }
 }
 
