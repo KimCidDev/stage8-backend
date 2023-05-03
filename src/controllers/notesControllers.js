@@ -22,7 +22,7 @@ class NotesController {
 
     await knex('links').insert(linksInsert);
 
-    const tagsInsert = links.map(name => {
+    const tagsInsert = tags.map(name => {
       return {
         note_id,
         name,
@@ -42,9 +42,8 @@ class NotesController {
 
     const tags = await knex('tags').where({ note_id: id }).orderBy('name');
 
-    const links = await knex('tags')
-      .where({ note_id: id })
-      .orderBy('created_at');
+    const links = await knex('tags').where({ note_id: id });
+    // ver por que eu não consigo orderBy como nas tags
 
     return response.json({
       ...note,

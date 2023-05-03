@@ -14,7 +14,7 @@ function xisSalada(request, response, next) {
 }
 
 notesRoutes.post('/:user_id', xisSalada, notesController.Create);
-notesRoutes.get('/:user_id', xisSalada, notesController.Show);
+notesRoutes.get('/:id', xisSalada, notesController.Show);
 // OR
 // usersRoutes.use(xisSalada)
 
