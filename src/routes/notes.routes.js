@@ -2,7 +2,7 @@ const { Router } = require('express');
 const notesRoutes = Router();
 
 const NotesController = require('../controllers/notesControllers');
-const notesController = new UserController();
+const notesController = new NotesController();
 
 // xisSalada é um Middleware
 function xisSalada(request, response, next) {
@@ -13,7 +13,8 @@ function xisSalada(request, response, next) {
   next();
 }
 
-usersRoutes.post('/:user_id', xisSalada, notesController.Create);
+notesRoutes.post('/:user_id', xisSalada, notesController.Create);
+notesRoutes.get('/:user_id', xisSalada, notesController.Show);
 // OR
 // usersRoutes.use(xisSalada)
 

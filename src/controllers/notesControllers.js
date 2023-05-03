@@ -1,4 +1,4 @@
-const appError = require('../utils/appError');
+// const appError = require('../utils/appError');
 
 const knex = require('../database/knex');
 
@@ -7,7 +7,7 @@ class NotesController {
     const { title, description, tags, links } = request.body;
     const { user_id } = request.params;
 
-    const notes_id = await knex('notes').insert({
+    const [note_id] = await knex('notes').insert({
       title,
       description,
       user_id
@@ -15,24 +15,42 @@ class NotesController {
 
     const linksInsert = links.map(link => {
       return {
-        notes_id,
+        note_id,
         url: link
       };
     });
 
-    await knex('links'.insert(linksInsert));
+    await knex('links').insert(linksInsert);
 
     const tagsInsert = links.map(name => {
       return {
-        notes_id,
+        note_id,
         name,
         user_id
       };
     });
 
-    await knex('tags'.insert(tagsInsert));
+    await knex('tags').insert(tagsInsert);
 
     response.json();
+  }
+
+  async Show(request, response) {
+    const { id } = request.params;
+
+    const note = await knex('notes').where({ id }).first();
+
+    const tags = await knex('tags').where({ note_id: id }).orderBy('name');
+
+    const links = await knex('tags')
+      .where({ note_id: id })
+      .orderBy('created_at');
+
+    return response.json({
+      ...note,
+      tags,
+      links
+    });
   }
 }
 
