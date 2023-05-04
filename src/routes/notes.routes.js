@@ -12,9 +12,10 @@ function xisSalada(request, response, next) {
 
   next();
 }
-
+notesRoutes.get('/', xisSalada, notesController.Index);
 notesRoutes.post('/:user_id', xisSalada, notesController.Create);
 notesRoutes.get('/:id', xisSalada, notesController.Show);
+notesRoutes.delete('/:id', xisSalada, notesController.Delete);
 // OR
 // usersRoutes.use(xisSalada)
 

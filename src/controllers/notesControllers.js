@@ -51,6 +51,22 @@ class NotesController {
       links
     });
   }
+
+  async Delete(request, response) {
+    const { id } = request.params;
+
+    await knex('notes').where({ id }).delete();
+
+    return response.json({});
+  }
+
+  async Index(request, response) {
+    const { user_id } = request.query;
+
+    const notes = await knex('notes').where({ user_id }).orderBy('title');
+
+    return response.json({ notes });
+  }
 }
 
 module.exports = NotesController;
